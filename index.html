@@ -31,6 +31,17 @@
     </ul>
   </section>
 
+  <section id="game">
+  <h2>Cyber Game: Guess the Secure Password</h2>
+  <p>Which of these is the most secure password?</p>
+  
+  <button onclick="checkAnswer('123456')">123456</button>
+  <button onclick="checkAnswer('P@ssw0rd')">P@ssw0rd</button>
+  <button onclick="checkAnswer('G8$t!rTz9#Lm')">G8$t!rTz9#Lm</button>
+
+  <p id="result" style="margin-top: 20px; font-weight: bold;"></p>
+</section>
+
   <section id="contact">
     <h2>Contact Me</h2>
     <p>Email: avik.karthikeyan</p>
@@ -42,3 +53,16 @@
   </footer>
 </body>
 </html>
+
+<script>
+  function checkAnswer(choice) {
+    const result = document.getElementById("result");
+    if (choice === "G8$t!rTz9#Lm") {
+      result.innerText = "✅ Correct! That's a strong password.";
+      result.style.color = "#00ff99";
+    } else {
+      result.innerText = "❌ Nope! Try again.";
+      result.style.color = "red";
+    }
+  }
+</script>
