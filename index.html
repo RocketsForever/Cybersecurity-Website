@@ -32,14 +32,13 @@
   </section>
 
   <section id="game">
-  <h2>Cyber Game: Guess the Secure Password</h2>
-  <p>Which of these is the most secure password?</p>
-  
-  <button onclick="checkAnswer('123456')">123456</button>
-  <button onclick="checkAnswer('P@ssw0rd')">P@ssw0rd</button>
-  <button onclick="checkAnswer('G8$t!rTz9#Lm')">G8$t!rTz9#Lm</button>
+  <h2>Cyber Game: Choose the Strongest Password</h2>
+  <p>Click the most secure password:</p>
 
-  <p id="result" style="margin-top: 20px; font-weight: bold;"></p>
+  <div id="password-options"></div>
+
+  <p id="streak" style="margin-top: 20px; font-weight: bold;">Streak: 0</p>
+  <p id="result" style="font-weight: bold;"></p>
 </section>
 
   <section id="contact">
@@ -51,6 +50,73 @@
   <footer>
     <p>© 2025 Avik Karthikeyan</p>
   </footer>
+  <script>
+  const weakPasswords = ["123456", "password", "qwerty", "letmein", "abc123", "iloveyou", "admin"];
+  let streak = 0;
+
+  function generateSecurePassword() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}";
+    let pass = "";
+    for (let i = 0; i < 12; i++) {
+      pass += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return pass;
+  }
+
+  function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  function displayPasswords() {
+    const securePassword = generateSecurePassword();
+    const fake1 = weakPasswords[Math.floor(Math.random() * weakPasswords.length)];
+    const fake2 = weakPasswords[Math.floor(Math.random() * weakPasswords.length)];
+    const choices = shuffle([securePassword, fake1, fake2]);
+
+    const container = document.getElementById("password-options");
+    container.innerHTML = "";
+    choices.forEach(pwd => {
+      const btn = document.createElement("button");
+      btn.textContent = pwd;
+      btn.onclick = () => checkAnswer(pwd, securePassword);
+      btn.style.margin = "10px";
+      btn.style.padding = "10px 20px";
+      btn.style.backgroundColor = "#333";
+      btn.style.color = "#00ff99";
+      btn.style.border = "2px solid #00ff99";
+      btn.style.borderRadius = "6px";
+      btn.style.cursor = "pointer";
+      btn.style.fontWeight = "bold";
+      container.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(selected, correct) {
+    const result = document.getElementById("result");
+    const streakDisplay = document.getElementById("streak");
+
+    if (selected === correct) {
+      result.textContent = "✅ Correct!";
+      result.style.color = "#00ff99";
+      streak++;
+    } else {
+      result.textContent = "❌ Wrong! Try again.";
+      result.style.color = "red";
+      streak = 0;
+    }
+
+    streakDisplay.textContent = "Streak: " + streak;
+
+    // Show new question after 1 second
+    setTimeout(() => {
+      result.textContent = "";
+      displayPasswords();
+    }, 1000);
+  }
+
+  // Start game
+  displayPasswords();
+</script>
 </body>
 </html>
 
