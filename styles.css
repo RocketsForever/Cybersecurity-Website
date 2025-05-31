@@ -56,3 +56,18 @@ footer {
   margin-top: 50px;
   color: #555;
 }
+#game button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #00ff99;
+  border: 2px solid #00ff99;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#game button:hover {
+  background-color: #00ff99;
+  color: black;
+}
